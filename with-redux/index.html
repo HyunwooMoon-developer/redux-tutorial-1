@@ -22,19 +22,28 @@
     <script>
         function reducer(state, action) {
             console.log('state:', state, "action :", action)
-            if(!state){
-                return {color:'white'}
+            if (!state) {
+                return {
+                    color: 'white'
+                }
             }
-            
+
             var newState;
 
-            if(action.type === 'CHANGE_COLOR'){
-                newState = Object.assign({}, state, {color: action.color});
+            if (action.type === 'CHANGE_COLOR') {
+                newState = Object.assign({}, state, {
+                    color: action.color
+                });
             }
+            console.log('action type:', action.type, 'action:', action, 'state:', state, 'newState:', newState)
             return newState;
         };
-        const store = Redux.createStore(reducer);
+        const store = Redux.createStore(reducer,
+            //REDUX DEVTOOLS
+            window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+        );
         console.log(store.getState());
+
         function red() {
             const state = store.getState();
             document.querySelector('#red').innerHTML = `
@@ -49,6 +58,7 @@
         //render
         store.subscribe(red);
         red();
+
         function green() {
             const state = store.getState();
             document.querySelector('#green').innerHTML = `
@@ -63,6 +73,7 @@
         //render
         store.subscribe(green);
         green();
+
         function blue() {
             const state = store.getState();
             document.querySelector('#blue').innerHTML = `
